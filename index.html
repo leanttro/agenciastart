@@ -316,7 +316,7 @@
             display: inline-block;
             font-size: 12vw;
             font-weight: 900;
-            color: rgba(0, 78, 146, 0.15); /* Cor azul forte com opacidade para ficar visível no fundo */
+            color: rgba(0, 78, 146, 0.15);
             animation: scroll-marquee 40s linear infinite;
             padding-right: 50px;
             text-transform: uppercase;
@@ -534,7 +534,6 @@
             .why-us { flex-direction: column; }
             .why-visual { height: 250px; width: 250px; margin: 0 auto; }
             
-            /* Ajustes para o carrossel mobile */
             .carousel-wrapper {
                 padding: 0 10px;
                 gap: 10px;
@@ -659,6 +658,30 @@
             <div class="portfolio-item animate-block fade-up" style="transition-delay: 0.2s;">
                 <img src="portfolio-3.png" alt="Case 3">
                 <div class="portfolio-overlay"><h4>Desenvolvimento Web</h4></div>
+            </div>
+            <div class="portfolio-item animate-block fade-up">
+                <img src="portfolio-4.png" alt="Case 4">
+                <div class="portfolio-overlay"><h4>Gestão de Redes</h4></div>
+            </div>
+            <div class="portfolio-item animate-block fade-up" style="transition-delay: 0.1s;">
+                <img src="portfolio-5.png" alt="Case 5">
+                <div class="portfolio-overlay"><h4>Lançamento</h4></div>
+            </div>
+            <div class="portfolio-item animate-block fade-up" style="transition-delay: 0.2s;">
+                <img src="portfolio-6.png" alt="Case 6">
+                <div class="portfolio-overlay"><h4>Audiovisual</h4></div>
+            </div>
+            <div class="portfolio-item animate-block fade-up">
+                <img src="portfolio-7.png" alt="Case 7">
+                <div class="portfolio-overlay"><h4>Branding</h4></div>
+            </div>
+            <div class="portfolio-item animate-block fade-up" style="transition-delay: 0.1s;">
+                <img src="portfolio-8.png" alt="Case 8">
+                <div class="portfolio-overlay"><h4>Design Gráfico</h4></div>
+            </div>
+            <div class="portfolio-item animate-block fade-up" style="transition-delay: 0.2s;">
+                <img src="portfolio-9.png" alt="Case 9">
+                <div class="portfolio-overlay"><h4>E-commerce</h4></div>
             </div>
         </div>
     </section>
@@ -788,7 +811,6 @@
 
         startHeroSlider();
 
-        // --- SISTEMA DE CARROSSEL DOS SERVIÇOS ---
         const track = document.getElementById('services-track');
         const nextButton = document.querySelector('.next-btn');
         const prevButton = document.querySelector('.prev-btn');
