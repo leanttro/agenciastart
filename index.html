@@ -752,6 +752,17 @@
         const imgEl = document.getElementById('hero-img');
         let currentSlide = 0;
 
+        // Controle para pausar a animação se o usuário rolar a página
+        let isHeroVisible = true;
+        const heroSection = document.getElementById('inicio');
+        const heroObserver = new IntersectionObserver((entries) => {
+            isHeroVisible = entries[0].isIntersecting;
+        }, { threshold: 0.1 });
+        
+        if (heroSection) {
+            heroObserver.observe(heroSection);
+        }
+
         async function eraseHTML(el, speed) {
             let html = el.innerHTML;
             while (html.length > 0) {
@@ -790,6 +801,9 @@
         async function startHeroSlider() {
             while(true) {
                 await new Promise(r => setTimeout(r, 5000)); 
+                
+                // Trava que impede a animação de rodar (e puxar a tela) se o usuário desceu o site
+                if (!isHeroVisible) continue;
                 
                 let nextSlide = (currentSlide + 1) % heroSlides.length;
                 
@@ -859,7 +873,7 @@
             threshold: 0.2
         };
 
-        const observer = new IntersectionObserver((entries, observer) => {
+        const scrollObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
@@ -869,7 +883,7 @@
         }, observerOptions);
 
         animateBlocks.forEach(block => {
-            observer.observe(block);
+            scrollObserver.observe(block);
         });
     </script>
 </body>
