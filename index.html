@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-width=1.0">
+    <title>Agência Start | Criatividade & Performance 360°</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #004e92;
+            --primary-cyan: #00c6fb;
+            --gradient-main: linear-gradient(135deg, #004e92, #00c6fb);
+            --gradient-hover: linear-gradient(135deg, #00c6fb, #004e92);
+            --bg-white: #ffffff;
+            --bg-light-gray: #f4f7f9;
+            --text-dark: #1a1a1a;
+            --text-medium: #555555;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body {
+            background-color: var(--bg-white);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-weight: 900;
+            letter-spacing: -1px;
+        }
+
+        .text-gradient {
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .section-padding {
+            padding: 100px 5%;
+        }
+
+        .skewed-divider-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: var(--bg-white);
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 20%);
+            z-index: 2;
+        }
+
+        .skewed-divider-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: var(--bg-light-gray);
+            clip-path: polygon(0 80%, 100% 0, 100% 100%, 0 100%);
+            z-index: 2;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            background: var(--gradient-main);
+            color: white;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 20px -10px rgba(0, 198, 251, 0.5);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .btn:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 30px -10px rgba(0, 78, 146, 0.7);
+            background: var(--gradient-hover);
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 0 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            height: 80px;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+
+        .menu-toggle {
+            display: block;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--text-dark);
+            z-index: 1002;
+        }
+
+        .logo-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 5px;
+            width: 180px;
+            height: 180px;
+            background: var(--bg-white);
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: morph-logo 6s ease-in-out infinite alternate;
+            z-index: 1001;
+        }
+
+        .logo-center img {
+            max-width: 130px;
+            z-index: 2;
+            position: relative;
+        }
+
+        @keyframes morph-logo {
+            0% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+            100% { border-radius: 60% 40% 30% 70% / 50% 60% 40% 60%; }
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            z-index: 1001;
+        }
+
+        .social-icon {
+            font-size: 24px;
+            color: var(--text-dark);
+            transition: 0.3s;
+        }
+
+        .social-icon:hover {
+            color: #004e92;
+        }
+
+        .header-right .btn {
+            padding: 10px 25px;
+        }
+
+        nav ul {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 320px;
+            height: 100vh;
+            background: var(--bg-white);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding: 100px 40px 40px;
+            box-shadow: 10px 0 30px rgba(0,0,0,0.1);
+            transition: 0.4s ease;
+            z-index: 1000;
+            list-style: none;
+        }
+
+        nav ul.active {
+            left: 0;
+        }
+
+        nav ul li {
+            margin: 15px 0;
+            text-align: left;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-medium);
+            font-weight: 700;
+            font-size: 16px;
+            text-transform: uppercase;
+            transition: 0.3s;
+            position: relative;
+            display: inline-block;
+        }
+
+        nav a:hover { color: #004e92; }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px; left: 0; width: 0; height: 2px;
+            background: var(--gradient-main);
+            transition: 0.3s ease-out;
+        }
+        nav a:hover::after { width: 100%; }
+
+        .close-menu {
+            position: absolute;
+            top: 25px;
+            right: 30px;
+            font-size: 30px;
+            cursor: pointer;
+            color: var(--text-dark);
+        }
+
+        .hero {
+            padding: 180px 5% 100px;
+            background: var(--bg-white);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 80vh;
+        }
+
+        .hero-shape {
+            position: absolute;
+            top: -20%;
+            right: -10%;
+            width: 50%;
+            height: 120%;
+            background: var(--gradient-main);
+            opacity: 0.05;
+            transform: skewX(-20deg);
+            z-index: 0;
+        }
+
+        .hero-content {
+            max-width: 650px;
+            position: relative;
+            z-index: 2;
+            min-height: 250px; 
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            color: var(--text-dark);
+            min-height: 160px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-medium);
+            margin-bottom: 40px;
+            max-width: 500px;
+            min-height: 80px;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            min-height: 400px;
+        }
+        
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 20px 20px 60px rgba(0,0,0,0.1);
+            transform: perspective(1000px) rotateY(-5deg);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        .hero-image:hover img {
+             transform: perspective(1000px) rotateY(0deg) scale(1.02);
+        }
+
+        .services {
+            background: var(--bg-light-gray);
+            position: relative;
+            padding-top: 120px;
+            overflow: hidden;
+        }
+
+        .marquee-bg {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            width: 100%;
+            overflow: hidden;
+            z-index: 1;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        .marquee-bg span {
+            display: inline-block;
+            font-size: 12vw;
+            font-weight: 900;
+            color: rgba(0, 78, 146, 0.15); /* Cor azul forte com opacidade para ficar visível no fundo */
+            animation: scroll-marquee 40s linear infinite;
+            padding-right: 50px;
+            text-transform: uppercase;
+        }
+
+        @keyframes scroll-marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            z-index: 3;
+        }
+        .section-title h2 { font-size: 2.5rem; margin-bottom: 15px; }
+
+        .carousel-wrapper {
+            position: relative;
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .carousel-track-container {
+            overflow: hidden;
+            width: 100%;
+            padding: 20px 0;
+        }
+
+        .services-grid {
+            display: flex;
+            gap: 30px;
+            transition: transform 0.4s ease-in-out;
+            width: max-content;
+        }
+
+        .service-card {
+            background: var(--bg-white);
+            padding: 40px 30px 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border-bottom: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+            width: 320px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 78, 146, 0.15);
+            border-bottom-color: #00c6fb;
+        }
+
+        .service-card i {
+            font-size: 3rem;
+            margin-bottom: 25px;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            transition: 0.3s;
+        }
+        .service-card:hover i { transform: scale(1.1) rotate(-5deg); }
+
+        .service-card h3 { margin-bottom: 15px; font-size: 1.3rem; }
+        .service-card p { color: var(--text-medium); font-size: 0.95rem; margin-bottom: 20px; flex-grow: 1; }
+
+        .service-card-img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-top: auto;
+        }
+
+        .carousel-btn {
+            background: var(--bg-white);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--primary-blue);
+            transition: 0.3s;
+            flex-shrink: 0;
+            z-index: 4;
+        }
+
+        .carousel-btn:hover {
+            background: var(--gradient-main);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .portfolio {
+            background: var(--bg-white);
+            position: relative;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .portfolio-item {
+            height: 280px;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to top, rgba(0, 78, 146, 0.8), transparent);
+            opacity: 0;
+            transition: 0.3s;
+            display: flex;
+            align-items: flex-end;
+            padding: 20px;
+        }
+        
+        .portfolio-overlay h4 { color: white; transform: translateY(20px); transition: 0.3s; }
+
+        .portfolio-item:hover img { transform: scale(1.1); }
+        .portfolio-item:hover .portfolio-overlay { opacity: 1; }
+        .portfolio-item:hover .portfolio-overlay h4 { transform: translateY(0); }
+
+        .why-us {
+            background: var(--bg-light-gray);
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            position: relative;
+        }
+        .why-text { flex: 1; }
+        .why-visual {
+            flex: 1;
+            height: 400px;
+            background: var(--gradient-main);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 5rem;
+            box-shadow: 0 20px 50px rgba(0, 198, 251, 0.3);
+            animation: morph 8s ease-in-out infinite;
+        }
+
+        @keyframes morph {
+            0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+            50% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
+            100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+        }
+
+        footer {
+            background: #0f172a;
+            color: rgba(255,255,255,0.7);
+            padding: 80px 5% 30px;
+        }
+        .footer-content h3 { color: white; margin-bottom: 25px; }
+        .footer-links a { color: white; margin-right: 15px; font-size: 1.2rem; transition: 0.3s; }
+        .footer-links a:hover { color: #00c6fb; }
+
+        .animate-block {
+            opacity: 0;
+            filter: blur(5px);
+            transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .fade-left.animate-block { transform: translateX(-100px); }
+        .fade-right.animate-block { transform: translateX(100px); }
+        .fade-up.animate-block { transform: translateY(100px); }
+
+        .animate-block.visible {
+            opacity: 1;
+            filter: blur(0);
+            transform: translateX(0) translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .logo-center { top: 10px; width: 120px; height: 120px; }
+            .logo-center img { max-width: 80px; }
+            .header-right .btn { display: none; }
+            nav ul { width: 100%; }
+            .hero { flex-direction: column; text-align: center; padding-top: 180px; }
+            .hero-image { margin-top: 40px; justify-content: center; }
+            .hero h1 { font-size: 2.2rem; min-height: auto; }
+            .hero p { min-height: auto; }
+            .skewed-divider-top, .skewed-divider-bottom { height: 40px; }
+            .why-us { flex-direction: column; }
+            .why-visual { height: 250px; width: 250px; margin: 0 auto; }
+            
+            /* Ajustes para o carrossel mobile */
+            .carousel-wrapper {
+                padding: 0 10px;
+                gap: 10px;
+            }
+            .carousel-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+            .services-grid { overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 20px; }
+            .service-card { scroll-snap-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+        
+        <nav>
+            <ul id="menu">
+                <li class="close-menu" onclick="toggleMenu()"><i class="fas fa-times"></i></li>
+                <li><a href="#inicio" onclick="toggleMenu()">Início</a></li>
+                <li><a href="#servicos" onclick="toggleMenu()">Soluções 360°</a></li>
+                <li><a href="#portfolio" onclick="toggleMenu()">Cases</a></li>
+                <li><a href="#why" onclick="toggleMenu()">A Agência</a></li>
+            </ul>
+        </nav>
+        
+        <a href="#" class="logo-center">
+            <img src="logo-header.png" alt="Start Agência">
+        </a>
+
+        <div class="header-right">
+            <a href="https://instagram.com/agenciastart.sp" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="https://wa.me/5511976232235" target="_blank" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+            <a href="#contato" class="btn">Falar Agora</a>
+        </div>
+    </header>
+
+    <section id="inicio" class="hero">
+        <div class="hero-shape"></div>
+        <div class="hero-content animate-block fade-left">
+            <h1 id="hero-title">
+                Enquanto muitos <br>
+                <span style="font-weight: 400; font-size: 2.5rem; -webkit-text-stroke: 1px #00c6fb; color: transparent;">vivem só no digital...</span><br>
+                A gente conecta <br>
+                <span class="text-gradient">online + offline.</span>
+            </h1>
+            <p id="hero-desc">Sua agência 360°. Unimos criatividade, tecnologia e estratégia para acelerar o crescimento da sua marca no online e offline.</p>
+            <a href="https://wa.me/5511976232235" class="btn">Iniciar Projeto <i class="fas fa-arrow-right" style="margin-left: 10px;"></i></a>
+        </div>
+        <div class="hero-image animate-block fade-right">
+            <img id="hero-img" src="hero-image-1.png" alt="Agência Criativa">
+        </div>
+    </section>
+
+    <section id="servicos" class="services section-padding">
+        <div class="marquee-bg">
+            <span>ESTRATÉGIA 360° • VÍDEOS E EDIÇÕES • SITES E SOFTWARES • IMPRESSÕES E BRINDES • </span>
+            <span>ESTRATÉGIA 360° • VÍDEOS E EDIÇÕES • SITES E SOFTWARES • IMPRESSÕES E BRINDES • </span>
+        </div>
+        
+        <div class="skewed-divider-top"></div>
+
+        <div class="section-title animate-block fade-up">
+            <h2>Nossas Soluções <span class="text-gradient">360°</span></h2>
+            <p>Tudo o que sua empresa precisa para dominar o mercado, em um só lugar.</p>
+        </div>
+
+        <div class="carousel-wrapper animate-block fade-up">
+            <button class="carousel-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+            
+            <div class="carousel-track-container">
+                <div class="services-grid" id="services-track">
+                    <div class="service-card">
+                        <i class="fas fa-infinity"></i>
+                        <h3>Estratégia 360°</h3>
+                        <p>Conectamos todos os pontos da sua comunicação. Do branding ao digital, garantindo consistência e resultados reais.</p>
+                        <img src="service-1.png" alt="Estratégia 360" class="service-card-img">
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-play-circle"></i>
+                        <h3>Vídeos e Edições</h3>
+                        <p>Produções audiovisuais dinâmicas que capturam a atenção e contam a história da sua marca com emoção.</p>
+                        <img src="service-2.png" alt="Vídeos e Edições" class="service-card-img">
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-code"></i>
+                        <h3>Sites e Softwares</h3>
+                        <p>Desenvolvimento web de alta performance. Sites rápidos, responsivos e sistemas sob medida para seu negócio.</p>
+                        <img src="service-3.png" alt="Sites e Softwares" class="service-card-img">
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-palette"></i>
+                        <h3>Impressões e Brindes</h3>
+                        <p>Design gráfico tangível. Materiais impressos de qualidade e brindes que marcam presença no mundo físico.</p>
+                        <img src="service-4.png" alt="Impressões e Brindes" class="service-card-img">
+                    </div>
+                </div>
+            </div>
+
+            <button class="carousel-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        
+        <div class="skewed-divider-bottom" style="background: var(--bg-white); clip-path: polygon(0 80%, 100% 0, 100% 100%, 0 100%);"></div>
+    </section>
+
+    <section id="portfolio" class="portfolio section-padding">
+        <div class="section-title animate-block fade-up">
+            <h2>Cases de <span class="text-gradient">Sucesso</span></h2>
+        </div>
+        <div class="portfolio-grid">
+            <div class="portfolio-item animate-block fade-up">
+                <img src="portfolio-1.png" alt="Case 1">
+                <div class="portfolio-overlay"><h4>Campanha Digital</h4></div>
+            </div>
+            <div class="portfolio-item animate-block fade-up" style="transition-delay: 0.1s;">
+                <img src="portfolio-2.png" alt="Case 2">
+                <div class="portfolio-overlay"><h4>Identidade Visual</h4></div>
+            </div>
+            <div class="portfolio-item animate-block fade-up" style="transition-delay: 0.2s;">
+                <img src="portfolio-3.png" alt="Case 3">
+                <div class="portfolio-overlay"><h4>Desenvolvimento Web</h4></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="why" class="why-us section-padding">
+        <div class="skewed-divider-top" style="background: var(--bg-white); clip-path: polygon(0 0, 100% 20%, 100% 100%, 0 100%);"></div>
+        
+        <div class="why-text animate-block fade-left">
+            <h2>Por que escolher a <span class="text-gradient">Start</span>?</h2>
+            <p style="margin-bottom: 20px;">Não somos apenas mais uma agência. Somos o seu parceiro estratégico de crescimento. Combinamos a agilidade necessária para o mercado digital com a profundidade estratégica que sua marca merece.</p>
+            <ul style="list-style: none; margin-bottom: 30px;">
+                <li style="margin-bottom: 10px;"><i class="fas fa-check-circle text-gradient" style="margin-right: 10px;"></i> Atendimento próximo e personalizado.</li>
+                <li style="margin-bottom: 10px;"><i class="fas fa-check-circle text-gradient" style="margin-right: 10px;"></i> Foco total em resultados e conversão.</li>
+                <li><i class="fas fa-check-circle text-gradient" style="margin-right: 10px;"></i> Criatividade que foge do óbvio.</li>
+            </ul>
+            <a href="https://wa.me/5511976232235" class="btn">Conhecer a Equipe</a>
+        </div>
+        <div class="why-visual animate-block fade-right">
+            <i class="fas fa-rocket"></i>
+        </div>
+    </section>
+
+    <footer id="contato">
+        <div class="footer-content animate-block fade-up">
+            <h3>Vamos conversar sobre o seu futuro?</h3>
+            <p style="margin-bottom: 20px;">Entre em contato e descubra como podemos acelerar o seu negócio.</p>
+            <p><i class="fab fa-whatsapp text-gradient"></i> (11) 97623-2235</p>
+            <p><i class="fab fa-instagram text-gradient"></i> @agenciastart.sp</p>
+            <div class="footer-links" style="margin-top: 30px;">
+                <a href="https://instagram.com/agenciastart.sp"><i class="fab fa-instagram"></i></a>
+                <a href="https://wa.me/5511976232235"><i class="fab fa-whatsapp"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+        <p style="text-align: center; margin-top: 60px; font-size: 0.8rem; opacity: 0.5;">&copy; 2026 Agência Start. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.querySelector('#menu').classList.toggle('active');
+        }
+
+        const heroSlides = [
+            {
+                title: `Enquanto muitos <br><span style="font-weight: 400; font-size: 2.5rem; -webkit-text-stroke: 1px #00c6fb; color: transparent;">vivem só no digital...</span><br>A gente conecta <br><span class="text-gradient">online + offline.</span>`,
+                desc: `Sua agência 360°. Unimos criatividade, tecnologia e estratégia para acelerar o crescimento da sua marca no online e offline.`,
+                img: `hero-image-1.png`
+            },
+            {
+                title: `Audiovisual de <br><span style="font-weight: 400; font-size: 2.5rem; -webkit-text-stroke: 1px #00c6fb; color: transparent;">Alto Impacto...</span><br>Da vinheta ao <br><span class="text-gradient">Cinema.</span>`,
+                desc: `Trabalhamos com vídeos, drones e câmeras cinematográficas. Já atendemos grandes nomes como Cortella e estamos prontos para a sua marca.`,
+                img: `hero-image-2.png`
+            },
+            {
+                title: `Comunicação <br><span style="font-weight: 400; font-size: 2.5rem; -webkit-text-stroke: 1px #00c6fb; color: transparent;">Visual Completa...</span><br>Sua marca em <br><span class="text-gradient">Todos os Lugares.</span>`,
+                desc: `Fazemos toda a comunicação visual da sua empresa: de banners e materiais impressos a camisetas e brindes exclusivos.`,
+                img: `hero-image-3.png`
+            }
+        ];
+
+        heroSlides.forEach(slide => {
+            const imagePreload = new Image();
+            imagePreload.src = slide.img;
+        });
+
+        const titleEl = document.getElementById('hero-title');
+        const descEl = document.getElementById('hero-desc');
+        const imgEl = document.getElementById('hero-img');
+        let currentSlide = 0;
+
+        async function eraseHTML(el, speed) {
+            let html = el.innerHTML;
+            while (html.length > 0) {
+                if (html.endsWith('>')) {
+                    let tagStart = html.lastIndexOf('<');
+                    html = html.substring(0, tagStart);
+                } else {
+                    html = html.substring(0, html.length - 1);
+                }
+                el.innerHTML = html;
+                if(html.trim() === '') break;
+                await new Promise(r => setTimeout(r, speed));
+            }
+            el.innerHTML = '';
+        }
+
+        async function typeWriterHTML(el, html, speed) {
+            el.innerHTML = '';
+            let i = 0;
+            let text = '';
+            while (i < html.length) {
+                text += html.charAt(i);
+                if (html.charAt(i) === '<') {
+                    let tagEnd = html.indexOf('>', i);
+                    if (tagEnd !== -1) {
+                        text += html.substring(i + 1, tagEnd + 1);
+                        i = tagEnd;
+                    }
+                }
+                el.innerHTML = text;
+                await new Promise(r => setTimeout(r, speed));
+                i++;
+            }
+        }
+
+        async function startHeroSlider() {
+            while(true) {
+                await new Promise(r => setTimeout(r, 5000)); 
+                
+                let nextSlide = (currentSlide + 1) % heroSlides.length;
+                
+                await eraseHTML(descEl, 10);
+                await eraseHTML(titleEl, 20);
+                
+                imgEl.style.opacity = 0;
+                await new Promise(r => setTimeout(r, 500)); 
+                
+                imgEl.src = heroSlides[nextSlide].img;
+                imgEl.style.opacity = 1;
+                
+                await typeWriterHTML(titleEl, heroSlides[nextSlide].title, 30);
+                await typeWriterHTML(descEl, heroSlides[nextSlide].desc, 15);
+                
+                currentSlide = nextSlide;
+            }
+        }
+
+        startHeroSlider();
+
+        // --- SISTEMA DE CARROSSEL DOS SERVIÇOS ---
+        const track = document.getElementById('services-track');
+        const nextButton = document.querySelector('.next-btn');
+        const prevButton = document.querySelector('.prev-btn');
+        const cards = Array.from(track.children);
+        
+        let currentPosition = 0;
+
+        function updateCarousel() {
+            if (cards.length === 0) return;
+            const cardWidth = cards[0].getBoundingClientRect().width;
+            const gap = 30; 
+            const moveAmount = cardWidth + gap;
+            const containerWidth = document.querySelector('.carousel-track-container').getBoundingClientRect().width;
+            const maxScroll = (cards.length * moveAmount) - containerWidth;
+            
+            return { moveAmount, maxScroll };
+        }
+
+        nextButton.addEventListener('click', () => {
+            const { moveAmount, maxScroll } = updateCarousel();
+            if (Math.abs(currentPosition) < maxScroll) {
+                currentPosition -= moveAmount;
+                if (Math.abs(currentPosition) > maxScroll) currentPosition = -maxScroll;
+                track.style.transform = `translateX(${currentPosition}px)`;
+            }
+        });
+
+        prevButton.addEventListener('click', () => {
+            const { moveAmount } = updateCarousel();
+            if (currentPosition < 0) {
+                currentPosition += moveAmount;
+                if (currentPosition > 0) currentPosition = 0;
+                track.style.transform = `translateX(${currentPosition}px)`;
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            currentPosition = 0;
+            track.style.transform = `translateX(0px)`;
+        });
+
+        const animateBlocks = document.querySelectorAll('.animate-block');
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.2
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        animateBlocks.forEach(block => {
+            observer.observe(block);
+        });
+    </script>
+</body>
+</html>
