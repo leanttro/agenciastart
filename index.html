@@ -302,7 +302,7 @@
 
         .marquee-bg {
             position: absolute;
-            top: 50%;
+            top: 60%;
             left: 0;
             transform: translateY(-50%);
             width: 100%;
@@ -335,19 +335,18 @@
         }
         .section-title h2 { font-size: 2.5rem; margin-bottom: 15px; }
 
-        /* CAROUSEL CSS ATUALIZADO */
         .carousel-wrapper {
             position: relative;
             z-index: 3;
-            max-width: 1400px; /* Aumentado ligeiramente */
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 60px; /* Espaço para os botões absolutos não cobrirem o conteúdo */
+            padding: 0 60px;
         }
 
         .carousel-track-container {
             overflow: hidden;
             width: 100%;
-            padding: 30px 10px; /* Padding extra para não cortar sombras */
+            padding: 30px 10px;
         }
 
         .services-grid {
@@ -400,7 +399,6 @@
             margin-top: auto;
         }
 
-        /* BOTÕES DO CARROSSEL ATUALIZADOS (ABSOLUTOS) */
         .carousel-btn {
             background: var(--bg-white);
             border: none;
@@ -412,7 +410,7 @@
             font-size: 20px;
             color: var(--primary-blue);
             transition: 0.3s;
-            z-index: 10; /* Z-index alto para ficar por cima */
+            z-index: 10;
             
             position: absolute;
             top: 50%;
@@ -539,15 +537,23 @@
             .why-visual { height: 250px; width: 250px; margin: 0 auto; }
             
             .carousel-wrapper {
-                padding: 0 50px; /* Ajuste para mobile com botões absolutos */
+                padding: 0 20px;
             }
             .carousel-btn {
                 width: 40px;
                 height: 40px;
                 font-size: 16px;
+                z-index: 20;
             }
-            .services-grid { overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 20px; }
-            .service-card { scroll-snap-align: center; }
+            .prev-btn { left: 5px; }
+            .next-btn { right: 5px; }
+            .services-grid {
+                gap: 20px;
+                padding-bottom: 20px;
+            }
+            .service-card {
+                width: calc(100vw - 60px);
+            }
         }
     </style>
 </head>
@@ -836,7 +842,7 @@
         function updateCarousel() {
             if (cards.length === 0) return;
             const cardWidth = cards[0].getBoundingClientRect().width;
-            const gap = 30; 
+            const gap = window.innerWidth <= 768 ? 20 : 30; 
             const moveAmount = cardWidth + gap;
             const containerWidth = document.querySelector('.carousel-track-container').getBoundingClientRect().width;
             const maxScroll = (cards.length * moveAmount) - containerWidth;
