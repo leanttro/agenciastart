@@ -293,6 +293,45 @@
              transform: perspective(1000px) rotateY(0deg) scale(1.02);
         }
 
+        .clients-section {
+            background: var(--bg-white);
+            padding: 40px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+            z-index: 5;
+            overflow: hidden;
+        }
+
+        .clients-marquee {
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+        }
+
+        .clients-track {
+            display: flex;
+            align-items: center;
+            width: max-content;
+            animation: scroll-clients 30s linear infinite;
+        }
+
+        .clients-track img {
+            height: 90px;
+            width: 180px;
+            object-fit: contain;
+            margin: 0 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .clients-track img:hover {
+            transform: scale(1.05);
+        }
+
+        @keyframes scroll-clients {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
         .services {
             background: var(--bg-light-gray);
             position: relative;
@@ -523,6 +562,66 @@
             transform: translateX(0) translateY(0);
         }
 
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0; visibility: hidden;
+            transition: 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background: var(--bg-white);
+            padding: 50px;
+            border-radius: 15px;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            transform: translateY(30px);
+            transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+        .modal-close {
+            position: absolute;
+            top: 20px; right: 25px;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--text-dark);
+            transition: 0.3s;
+        }
+        .modal-close:hover {
+            color: var(--primary-cyan);
+            transform: scale(1.1);
+        }
+        .modal-image-display {
+            width: 100%;
+            max-height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .modal-title {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: var(--primary-blue);
+        }
+        .modal-text {
+            font-size: 1.4rem;
+            color: var(--text-medium);
+            line-height: 1.6;
+        }
+
         @media (max-width: 768px) {
             .logo-center { top: 10px; width: 120px; height: 120px; }
             .logo-center img { max-width: 80px; }
@@ -554,6 +653,9 @@
             .service-card {
                 width: calc(100vw - 60px);
             }
+            .modal-content { padding: 40px 30px; }
+            .modal-title { font-size: 1.8rem; }
+            .modal-text { font-size: 1.2rem; }
         }
     </style>
 </head>
@@ -599,6 +701,33 @@
             <img id="hero-img" src="hero-image-1.png" alt="Agência Criativa">
         </div>
     </section>
+
+    <div class="clients-section">
+        <div class="clients-marquee">
+            <div class="clients-track">
+                <img src="cliente1.png" alt="Cliente 1">
+                <img src="cliente2.png" alt="Cliente 2">
+                <img src="cliente3.png" alt="Cliente 3">
+                <img src="cliente4.png" alt="Cliente 4">
+                <img src="cliente5.png" alt="Cliente 5">
+                <img src="cliente6.png" alt="Cliente 6">
+                <img src="cliente7.png" alt="Cliente 7">
+                <img src="cliente8.png" alt="Cliente 8">
+                <img src="cliente9.png" alt="Cliente 9">
+                <img src="cliente10.png" alt="Cliente 10">
+                <img src="cliente1.png" alt="Cliente 1">
+                <img src="cliente2.png" alt="Cliente 2">
+                <img src="cliente3.png" alt="Cliente 3">
+                <img src="cliente4.png" alt="Cliente 4">
+                <img src="cliente5.png" alt="Cliente 5">
+                <img src="cliente6.png" alt="Cliente 6">
+                <img src="cliente7.png" alt="Cliente 7">
+                <img src="cliente8.png" alt="Cliente 8">
+                <img src="cliente9.png" alt="Cliente 9">
+                <img src="cliente10.png" alt="Cliente 10">
+            </div>
+        </div>
+    </div>
 
     <section id="servicos" class="services section-padding">
         <div class="marquee-bg">
@@ -653,44 +782,44 @@
 
     <section id="portfolio" class="portfolio section-padding">
         <div class="section-title animate-block fade-up">
-            <h2>Cases de <span class="text-gradient">Sucesso</span></h2>
+            <h2>Seu Sucesso <span class="text-gradient">Começa Aqui!</span></h2>
         </div>
         <div class="portfolio-grid">
-            <div class="portfolio-item animate-block fade-up">
-                <img src="portfolio-1.png" alt="Case 1">
-                <div class="portfolio-overlay"><h4>Campanha Digital</h4></div>
+            <div class="portfolio-item animate-block fade-up" onclick="openModal('case1.png', 'Gravação e Edição de Vídeo', 'Transformamos ideias em produções audiovisuais completas.')" style="cursor: pointer;">
+                <img src="case1.png" alt="Case 1">
+                <div class="portfolio-overlay"><h4>Gravação e Edição de Vídeo</h4></div>
             </div>
-            <div class="portfolio-item animate-block fade-up" style="transition-delay: 0.1s;">
-                <img src="portfolio-2.png" alt="Case 2">
+            <div class="portfolio-item animate-block fade-up" style="transition-delay: 0.1s; cursor: pointer;" onclick="openModal('case2.png', 'Identidade Visual', 'Criamos marcas fortes que transmitem a essência do seu negócio.')">
+                <img src="case2.png" alt="Case 2">
                 <div class="portfolio-overlay"><h4>Identidade Visual</h4></div>
             </div>
-            <div class="portfolio-item animate-block fade-up" style="transition-delay: 0.2s;">
-                <img src="portfolio-3.png" alt="Case 3">
-                <div class="portfolio-overlay"><h4>Desenvolvimento Web</h4></div>
+            <div class="portfolio-item animate-block fade-up" style="transition-delay: 0.2s; cursor: pointer;" onclick="openModal('case3.png', 'Filmagem com Drone', 'Imagens aéreas incríveis para dar uma nova perspectiva aos projetos.')">
+                <img src="case3.png" alt="Case 3">
+                <div class="portfolio-overlay"><h4>Filmagem com Drone</h4></div>
             </div>
-            <div class="portfolio-item animate-block fade-up">
-                <img src="portfolio-4.png" alt="Case 4">
-                <div class="portfolio-overlay"><h4>Gestão de Redes</h4></div>
+            <div class="portfolio-item animate-block fade-up" onclick="openModal('case4.png', 'Brindes Personalizados', 'Produtos exclusivos para fidelizar clientes e fortalecer a marca.')" style="cursor: pointer;">
+                <img src="case4.png" alt="Case 4">
+                <div class="portfolio-overlay"><h4>Brindes Personalizados</h4></div>
             </div>
-            <div class="portfolio-item animate-block fade-up" style="transition-delay: 0.1s;">
-                <img src="portfolio-5.png" alt="Case 5">
-                <div class="portfolio-overlay"><h4>Lançamento</h4></div>
+            <div class="portfolio-item animate-block fade-up" style="transition-delay: 0.1s; cursor: pointer;" onclick="openModal('case5.png', 'Comunicação Visual', 'Soluções em materiais gráficos para destacar sua empresa.')">
+                <img src="case5.png" alt="Case 5">
+                <div class="portfolio-overlay"><h4>Comunicação Visual</h4></div>
             </div>
-            <div class="portfolio-item animate-block fade-up" style="transition-delay: 0.2s;">
-                <img src="portfolio-6.png" alt="Case 6">
-                <div class="portfolio-overlay"><h4>Audiovisual</h4></div>
+            <div class="portfolio-item animate-block fade-up" style="transition-delay: 0.2s; cursor: pointer;" onclick="openModal('case6.png', 'Gestão de Mídia', 'Estratégias para redes sociais e tráfego pago para aumentar seu alcance.')">
+                <img src="case6.png" alt="Case 6">
+                <div class="portfolio-overlay"><h4>Gestão de Mídia</h4></div>
             </div>
-            <div class="portfolio-item animate-block fade-up">
-                <img src="portfolio-7.png" alt="Case 7">
-                <div class="portfolio-overlay"><h4>Branding</h4></div>
+            <div class="portfolio-item animate-block fade-up" onclick="openModal('case7.png', 'Sites e Softwares', 'Desenvolvimento de plataformas digitais sob medida e performáticas.')" style="cursor: pointer;">
+                <img src="case7.png" alt="Case 7">
+                <div class="portfolio-overlay"><h4>Sites e Softwares</h4></div>
             </div>
-            <div class="portfolio-item animate-block fade-up" style="transition-delay: 0.1s;">
-                <img src="portfolio-8.png" alt="Case 8">
-                <div class="portfolio-overlay"><h4>Design Gráfico</h4></div>
+            <div class="portfolio-item animate-block fade-up" style="transition-delay: 0.1s; cursor: pointer;" onclick="openModal('case8.png', 'Gestão de Vendas', 'Consultoria para estruturar seu funil de vendas e escalar faturamento.')">
+                <img src="case8.png" alt="Case 8">
+                <div class="portfolio-overlay"><h4>Gestão de Vendas</h4></div>
             </div>
-            <div class="portfolio-item animate-block fade-up" style="transition-delay: 0.2s;">
-                <img src="portfolio-9.png" alt="Case 9">
-                <div class="portfolio-overlay"><h4>E-commerce</h4></div>
+            <div class="portfolio-item animate-block fade-up" style="transition-delay: 0.2s; cursor: pointer;" onclick="openModal('case9.png', 'IA para Negócios', 'Inteligência artificial para otimizar processos e resultados.')">
+                <img src="case9.png" alt="Case 9">
+                <div class="portfolio-overlay"><h4>IA para Negócios</h4></div>
             </div>
         </div>
     </section>
@@ -728,7 +857,29 @@
         <p style="text-align: center; margin-top: 60px; font-size: 0.8rem; opacity: 0.5;">&copy; 2026 Agência Start. Todos os direitos reservados.</p>
     </footer>
 
+    <div class="modal-overlay" id="portfolio-modal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <i class="fas fa-times modal-close" onclick="closeModal()"></i>
+            <img src="" alt="Case de Sucesso" id="modal-image" class="modal-image-display">
+            <h3 class="modal-title" id="modal-title">Título</h3>
+            <p class="modal-text" id="modal-text">Texto do serviço.</p>
+        </div>
+    </div>
+
     <script>
+        function openModal(imgSrc, title, text) {
+            document.getElementById('modal-image').src = imgSrc;
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-text').innerText = text;
+            document.getElementById('portfolio-modal').classList.add('active');
+        }
+
+        function closeModal(e) {
+            if (!e || e.target.classList.contains('modal-overlay') || e.target.classList.contains('modal-close')) {
+                document.getElementById('portfolio-modal').classList.remove('active');
+            }
+        }
+
         function toggleMenu() {
             document.querySelector('#menu').classList.toggle('active');
         }
